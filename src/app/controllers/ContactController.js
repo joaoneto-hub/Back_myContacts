@@ -20,9 +20,9 @@ class ContactController {
     response.json(contact);
   }
 
-  store() {
+  store(request, response) {
     // Criar um registro
-
+    response.send('Funciona');
   }
 
   update() {
