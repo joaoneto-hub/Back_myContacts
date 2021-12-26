@@ -20,14 +20,51 @@ class ContactController {
     response.json(contact);
   }
 
-  store(request, response) {
+  async store(request, response) {
     // Criar um registro
-    response.send('Funciona');
+    const {
+      name, email, phone, category_id,
+    } = request.body;
+    if (!name) {
+      return response.status(400).json({ error: 'Name is required' });
+    }
+    const contactExists = await ContactsRepository.findByEmail(email);
+
+    if (contactExists) {
+      return response.status(400).json({ error: 'This e-mail is alread been taken' });
+    }
+    const contact = await ContactsRepository.create({
+      name, email, phone, category_id,
+    });
+
+    response.json(contact);
   }
 
-  update() {
+  async update(request, response) {
     // Editar um registro
+    const { id } = request.params;
+    const {
+      name, email, phone, category_id,
+    } = request.body;
 
+    const contatcExist = await ContactsRepository.findById(id);
+    if (!contatcExist) {
+      return response.status(404).send({ error: 'User not found' });
+    }
+
+    if (!name) {
+      return response.status(400).send({ error: 'Name is required' });
+    }
+
+    const contatctByEmail = await ContactsRepository.findByEmail(email);
+
+    if (contatctByEmail && contatctByEmail !== id) {
+      return response.status(400).json({ error: 'This e-mail is alread been taken' });
+    }
+    const contact = await ContactsRepository.update(id, {
+      name, email, phone, category_id,
+    });
+    response.json(contact);
   }
 
   async delete(request, response) {
