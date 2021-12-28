@@ -16,12 +16,12 @@ class ContactsRepository {
     return row;
   }
 
-  delete(id) {
-    return new Promise((resolve) => {
-      contacts = contacts.filter((contact) => contact.id !== id);
-      resolve();
-    });
-  }
+  // delete(id) {
+  //   return new Promise((resolve) => {
+  //     contacts = contacts.filter((contact) => contact.id !== id);
+  //     resolve();
+  //   });
+  // }
 
   async create({
     name, email, phone, category_id,
@@ -35,24 +35,24 @@ class ContactsRepository {
     return row;
   }
 
-  update(id, {
-    name, email, phone, category_id,
-  }) {
-    return new Promise((resolve) => {
-      const updateContact = {
-        id,
-        name,
-        email,
-        phone,
-        category_id,
-      };
+  // update(id, {
+  //   name, email, phone, category_id,
+  // }) {
+  //   return new Promise((resolve) => {
+  //     const updateContact = {
+  //       id,
+  //       name,
+  //       email,
+  //       phone,
+  //       category_id,
+  //     };
 
-      contacts = contacts.map((contact) => (
-        contact.id === id ? updateContact : contact
-      ));
-      resolve(updateContact);
-    });
-  }
+  //     contacts = contacts.map((contact) => (
+  //       contact.id === id ? updateContact : contact
+  //     ));
+  //     resolve(updateContact);
+  //   });
+  // }
 }
 
 module.exports = new ContactsRepository();
