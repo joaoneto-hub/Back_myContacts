@@ -52,7 +52,7 @@ class ContactsRepository {
   //     ));
   //     resolve(updateContact);
   //   });
-  // }
+   }
 }
 
 module.exports = new ContactsRepository();
